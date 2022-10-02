@@ -3,7 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Review, ReviewDocument } from './schemas/feedback.schema';
 import { FilterReviewDto } from './dto/filter-review.dto';
-
+import axios from 'axios';
 
 @Injectable()
 export class AppService {
@@ -53,7 +53,6 @@ export class AppService {
     } catch (error) {
       this.logger.log(error);
     }
-
   }
 
   async updateOne(id: mongoose.Types.ObjectId): Promise<any> {
@@ -67,10 +66,23 @@ export class AppService {
 
   async parseReviews() {
     try {
+      const reviewCount = 10;
+      const chankSize = 5;
+      const cycleCount = Math.ceil(reviewCount / chankSize);
+      for (let i = 0; i < cycleCount; i++) {
+      }
+      const reviews = await axios.get('https://api.delivery-club.ru/api1.2/reviews', {
+        params: {
+          chainId: 48274, // MSK
+          limit: 5,
+          offset: 0,
+          // cacheBreaker: 1664679021,
+        }
+      });
+      return reviews.data;
       // TODO
       // check rated and hash fields
       // if "rated" is changed -> save new data into DB
-      return true;
     } catch (error) {
       this.logger.log(error);
     }

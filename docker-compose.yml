@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    environment:
+      - MONGODB_DATABASE="adventure"
+    ports:
+      - 27017:27017
+    logging:
+      driver: none
+    volumes:
+      - mongodb:/data/db
+
+  app:
+    image: node:16
+    container_name: app_cont
+    restart: always
+    working_dir: /app
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+    depends_on:
+      - mongodb
+    ports:
+      - '3000:3000'
+    command: yarn run start:dev
+
+volumes:
+  app:
+  mongodb:

@@ -7,7 +7,7 @@ import { Review, ReviewSchema } from './schemas/feedback.schema';
 @Module({
   imports: [
     // TODO to config
-    MongooseModule.forRoot('mongodb://localhost/nest'),
+    MongooseModule.forRoot('mongodb://mongodb:27017'),
     MongooseModule.forFeature([{ name: Review.name, schema: ReviewSchema }])
   ],
   controllers: [AppController],
