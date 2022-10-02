@@ -1,6 +1,5 @@
-import { parse } from 'node-html-parser';
 import mongoose, { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Review, ReviewDocument } from './schemas/feedback.schema';
 import { FilterReviewDto } from './dto/filter-review.dto';
@@ -8,47 +7,73 @@ import { FilterReviewDto } from './dto/filter-review.dto';
 
 @Injectable()
 export class AppService {
+
   constructor(@InjectModel(Review.name) private reviewModel: Model<ReviewDocument>) { }
 
-  getHello(): string {
-    return 'Hello World!';
+  private logger = new Logger(AppService.name);
+
+  async createOne(createReview: Review): Promise<Review> {
+    try {
+      const createdReview = new this.reviewModel(createReview);
+      return createdReview.save();
+    } catch (error) {
+      this.logger.log(error);
+    }
   }
 
-  // TODO move CRUD to libs
-  async create(createReview: Review): Promise<Review> {
-    const createdReview = new this.reviewModel(createReview);
-    return createdReview.save();
+  async createMany(createReview: Review): Promise<Review> {
+    try {
+      const createdReview = new this.reviewModel(createReview);
+      return createdReview.save();
+    } catch (error) {
+      this.logger.log(error);
+    }
   }
 
   async findOne(id: mongoose.Types.ObjectId): Promise<Review> {
-    return this.reviewModel.findOne(id).exec();
+    try {
+      return this.reviewModel.findOne(id).exec();
+    } catch (error) {
+      this.logger.log(error);
+    }
   }
 
   async findAll(filters: FilterReviewDto): Promise<Review[]> {
-    // TODO apply filters to query
-    return this.reviewModel.find().exec();
+    try {
+      return this.reviewModel.find({
+        rated: {
+          $lte: filters?.dateTo || Date.now(),
+          $gte: filters?.dateFrom || 0
+        },
+        icon: filters?.rating || null,
+      })
+        .skip(filters?.limit || 0)
+        .limit(filters?.limit || 0)
+        .exec();
+    } catch (error) {
+      this.logger.log(error);
+    }
+
   }
 
   async updateOne(id: mongoose.Types.ObjectId): Promise<any> {
-    // TODO update return type
-    return this.reviewModel.updateOne(id).exec();
-  }
+    try {
+      return this.reviewModel.updateOne(id).exec();
+    } catch (error) {
+      this.logger.log(error);
+    }
 
-  async deleteOne(id: mongoose.Types.ObjectId): Promise<Review[]> {
-    // TODO apply try catch to all requests
-    return this.reviewModel.remove(id).exec();
   }
 
   async parseReviews() {
-    // TODO
-    // check rated and hash fields
-    // if "rated" is changed -> save new data into DB
-    return true;
+    try {
+      // TODO
+      // check rated and hash fields
+      // if "rated" is changed -> save new data into DB
+      return true;
+    } catch (error) {
+      this.logger.log(error);
+    }
   }
 
-  async getHtmlRoot() {
-    // TODO if task will include html parsing mode
-    const root = parse('<ul id="list"><li>Hello World</li></ul>');
-    return root;
-  }
 }

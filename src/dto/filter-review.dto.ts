@@ -13,7 +13,13 @@ export class FilterReviewDto {
         required: false,
         type: Date,
     })
-    date: Date;
+    dateFrom: Date;
+
+    @ApiProperty({
+        required: false,
+        type: Date,
+    })
+    dateTo: Date;
 
     @ApiProperty({
         required: false,
