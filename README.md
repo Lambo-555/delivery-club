@@ -1,6 +1,17 @@
 # Тестовое задание - парсинг отзывов delivery-club. 
 ## Исполнитель - Малышев Станислав.
 
+
+### Запуск
+``` bash
+// stop and run containers
+$ yarn docker:env:down
+$ yarn docker:env:up
+
+// stop all Docker containers
+$ yarn docker:stop
+```
+
 ###  Задание
 Разработать инструмент, который выполняет две задачи:
 - Стягивает отзывы с https://www.delivery-club.ru/srv/KFC_msk/feedbacks и записывает их в СУБД
