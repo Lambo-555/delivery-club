@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import mongoose from 'mongoose';
 
 export class FilterReviewDto {
     @ApiProperty({
@@ -7,19 +8,19 @@ export class FilterReviewDto {
         required: false,
         type: String,
     })
-    rating: number; // icon?
+    rating: string; // icon?
 
     @ApiProperty({
         required: false,
         type: Date,
     })
-    dateFrom: Date;
+    dateStart: Date;
 
     @ApiProperty({
         required: false,
         type: Date,
     })
-    dateTo: Date;
+    dateEnd: Date;
 
     @ApiProperty({
         required: false,
@@ -32,4 +33,10 @@ export class FilterReviewDto {
         type: Number,
     })
     offset: number;
+
+    @ApiProperty({
+        required: false,
+        type: Number,
+    })
+    sortByDate: 1 | -1;
 }

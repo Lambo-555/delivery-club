@@ -13,7 +13,7 @@ export class ReviewProduct {
         required: true,
         type: String,
     })
-    @Prop({type: String, required: true})
+    @Prop({ type: String, required: true })
     name: string;
 }
 
@@ -24,7 +24,7 @@ export class ReviewAnswer {
         required: true,
         type: String,
     })
-    @Prop({type: String, required: true})
+    @Prop({ type: String, required: true })
     answer: string;
 
     @ApiProperty({
@@ -32,7 +32,7 @@ export class ReviewAnswer {
         required: true,
         type: Date,
     })
-    @Prop({type: Date, required: true})
+    @Prop({ type: Date, required: true })
     createdAt: Date;
 
     @ApiProperty({
@@ -40,7 +40,7 @@ export class ReviewAnswer {
         required: true,
         type: String,
     })
-    @Prop({type: String, required: true})
+    @Prop({ type: String, required: true })
     publicUuid: string;
 
     @ApiProperty({
@@ -48,7 +48,7 @@ export class ReviewAnswer {
         required: true,
         type: String,
     })
-    @Prop({type: String, required: true})
+    @Prop({ type: String, required: true })
     sourceId: string;
 
     @ApiProperty({
@@ -56,7 +56,7 @@ export class ReviewAnswer {
         required: true,
         type: String,
     })
-    @Prop({type: String, required: true})
+    @Prop({ type: String, required: true })
     statusId: string;
 }
 
@@ -74,7 +74,7 @@ export class Review {
         required: true,
         type: String,
     })
-    @Prop({type: String, required: true})
+    @Prop({ type: String, required: true })
     author: string;
 
     @ApiProperty({
@@ -82,15 +82,15 @@ export class Review {
         required: true,
         type: String,
     })
-    @Prop({type: String, required: true})
+    @Prop({ type: String, required: true })
     body: string;
 
     @ApiProperty({
-        example: '😖',
+        example: '😖', // 😊
         required: true,
         type: String,
     })
-    @Prop({type: String, required: true})
+    @Prop({ type: String, required: true })
     icon: string; // Emoji Enum?
 
     @ApiProperty({
@@ -98,7 +98,7 @@ export class Review {
         required: true,
         type: String,
     })
-    @Prop({type: String, required: true})
+    @Prop({ type: String, required: true })
     orderHash: string;
 
     @ApiProperty({
@@ -113,7 +113,7 @@ export class Review {
         required: true,
         type: Date,
     })
-    @Prop({type: Date, required: true})
+    @Prop({ type: Date, required: true })
     rated: Date; // Example "2022-09-29T16:14:49+0300" // d.m.Y H:i:s
 }
 
